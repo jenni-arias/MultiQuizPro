@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MultiQuiz</string>
+    <string name="app_name" translatable="false">MultiQuiz Pro</string>
     <string name="question">Question</string>
     <string name="check">Check</string>
     <string name="correct">Very good!</string>
@@ -9,6 +9,9 @@
     <string name="prev">Previous</string>
     <string name="results">Results</string>
     <string name="start_over">Start Over</string>
+    <string name="correctas">Correctas: </string>
+    <string name="incorrectas">Inorrectas: </string>
+    <string name="nocontestadas">No contestadas: </string>
 
 
     <array name = "all_questions">

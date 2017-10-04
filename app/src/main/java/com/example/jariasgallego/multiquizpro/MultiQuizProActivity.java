@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -13,20 +14,56 @@ import android.widget.Toast;
 
 public class MultiQuizProActivity extends AppCompatActivity {
 
+    public static final String CORRECT_ANSWER = "correct_answer";
+    public static final String CURRECT_QUESTION = "currect_question";
+    public static final String ANSWER_IS_CORRECT = "answer_is_correct";
+    public static final String ANSWER = "answer";
     private int ids_answers[] = {
             R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4
     };
     private int correct_answer;
     private int current_question;
-    private String[] all_questions;
     private boolean[] answer_is_correct;
     private int[] answer;
+    private String[] all_questions;
     private TextView text_question;
     private RadioGroup group;
     private Button btn_next, btn_prev;
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {   // Para guardar y recrear
+        Log.i("lifecycle", "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+        outState.putInt(CORRECT_ANSWER, correct_answer);
+        outState.putInt(CURRECT_QUESTION, current_question);
+        outState.putBooleanArray(ANSWER_IS_CORRECT, answer_is_correct);
+        outState.putIntArray(ANSWER, answer);
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i("lifecycle", "onCreate");
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i("lifecycle", "onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("lifecycle", "onDestroy");
+        super.onDestroy();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("lifecycle", "onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_quiz_pro);
 
@@ -36,7 +73,18 @@ public class MultiQuizProActivity extends AppCompatActivity {
         btn_prev = (Button) findViewById(R.id.btn_prev);
 
         all_questions = getResources().getStringArray(R.array.all_questions);
-        startOver();
+
+        if(savedInstanceState == null) {
+            startOver();
+        } else {
+            Bundle state = savedInstanceState;
+            correct_answer = state.getInt(CORRECT_ANSWER);
+            current_question = state.getInt(CURRECT_QUESTION);
+            answer_is_correct = state.getBooleanArray(ANSWER_IS_CORRECT);
+            answer = state.getIntArray(ANSWER);
+            showQuestion();
+        }
+
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +135,13 @@ public class MultiQuizProActivity extends AppCompatActivity {
                 String.format("Correctas: %d\nIncorrectas: %d\nNo contestadas: %d\n",    // \n : Final de linea
                     correctas, incorrectas, nocontestadas);
 
+   /*     String rec_correctas =  getResources().getString(R.string.correctas);
+        String rec_incorrectas =  getResources().getString(R.string.incorrectas);
+        String rec_nocontestadas =  getResources().getString(R.string.nocontestadas);
+        String message =
+                String.format("Correctas: %d\nIncorrectas: %d\nNo contestadas: %d\n",
+                        rec_correctas, rec_incorrectas, rec_nocontestadas );
+*/
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.results);
         builder.setMessage(message);
