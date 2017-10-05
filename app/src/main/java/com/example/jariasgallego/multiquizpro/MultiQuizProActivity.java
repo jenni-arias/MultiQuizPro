@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class MultiQuizProActivity extends AppCompatActivity {
 
@@ -18,6 +18,7 @@ public class MultiQuizProActivity extends AppCompatActivity {
     public static final String CURRECT_QUESTION = "currect_question";
     public static final String ANSWER_IS_CORRECT = "answer_is_correct";
     public static final String ANSWER = "answer";
+
     private int ids_answers[] = {
             R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4
     };
@@ -30,6 +31,7 @@ public class MultiQuizProActivity extends AppCompatActivity {
     private RadioGroup group;
     private Button btn_next, btn_prev;
 
+    TextView label_question;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {   // Para guardar y recrear
@@ -74,6 +76,10 @@ public class MultiQuizProActivity extends AppCompatActivity {
 
         all_questions = getResources().getStringArray(R.array.all_questions);
 
+        label_question = (TextView) findViewById(R.id.label_question);
+        label_question.setText(getResources().getString(R.string.question) + " " + 1);
+
+
         if(savedInstanceState == null) {
             startOver();
         } else {
@@ -85,13 +91,16 @@ public class MultiQuizProActivity extends AppCompatActivity {
             showQuestion();
         }
 
-
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkAnswer();
+
+                int i = current_question + 1;
                 if (current_question < all_questions.length-1) {
                     current_question++;
+                    i++;
+                    label_question.setText(getResources().getString(R.string.question) + " " + i);
                     showQuestion();
                 } else {
                     checkResults();
@@ -103,8 +112,11 @@ public class MultiQuizProActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkAnswer();
+                int i = current_question + 1;
                 if (current_question >0) {
                     current_question--;
+                    i--;
+                    label_question.setText(getResources().getString(R.string.question) + " " + i);
                     showQuestion();
                 }
             }
@@ -114,10 +126,10 @@ public class MultiQuizProActivity extends AppCompatActivity {
     private void startOver() {
         answer_is_correct = new boolean[all_questions.length];
         answer = new int[all_questions.length];
-
         for (int i = 0; i< answer.length; i++) {
             answer[i] = -1;
         }
+        label_question.setText(getResources().getString(R.string.question) + " " + 1);
         current_question = 0;
         showQuestion();
     }

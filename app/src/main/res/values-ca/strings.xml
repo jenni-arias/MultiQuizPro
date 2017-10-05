@@ -6,7 +6,6 @@
     <string name="incorrect">Incorrecte...</string>
     <string name="next">Següent</string>
     <string name="prev">Anterior</string>
-    <string name="question">Pregunta</string>
     <string name="results">Resultats</string>
     <string name="start_over">Tornar a començar</string>
 
@@ -19,5 +18,6 @@
     <string name="resp_correct">Correctes:</string>
     <string name="resp_incorrect">Incorrectes:</string>
     <string name="resp_noanswer">No contestades:</string>
+    <string name="question">Pregunta</string>
 
 </resources>
