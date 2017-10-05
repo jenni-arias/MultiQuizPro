@@ -123,25 +123,22 @@ public class MultiQuizProActivity extends AppCompatActivity {
     }
 
     private void checkResults() {
-        int correctas = 0, incorrectas = 0, nocontestadas = 0;
+        int correct = 0, incorrect = 0, noanswer = 0;
         for (int i = 0; i< all_questions.length; i++) {
-            if (answer_is_correct[i]) correctas++;
-            else if (answer[i] == -1) nocontestadas++;
-            else incorrectas++;
+            if (answer_is_correct[i]) correct++;
+            else if (answer[i] == -1) noanswer++;
+            else incorrect++;
         }
 
-        // TODO: Permmitir traducción de este texto
-        String message =
-                String.format("Correctas: %d\nIncorrectas: %d\nNo contestadas: %d\n",    // \n : Final de linea
-                    correctas, incorrectas, nocontestadas);
 
-   /*     String rec_correctas =  getResources().getString(R.string.correctas);
-        String rec_incorrectas =  getResources().getString(R.string.incorrectas);
-        String rec_nocontestadas =  getResources().getString(R.string.nocontestadas);
+        String rec_correctas =  getResources().getString(R.string.resp_correct);
+        String rec_incorrectas =  getResources().getString(R.string.resp_incorrect);
+        String rec_nocontestadas =  getResources().getString(R.string.resp_noanswer);
+
         String message =
-                String.format("Correctas: %d\nIncorrectas: %d\nNo contestadas: %d\n",
-                        rec_correctas, rec_incorrectas, rec_nocontestadas );
-*/
+                String.format(rec_correctas + " %d \n" + rec_incorrectas + " %d \n" + rec_nocontestadas + " %d",    // \n : Final de linea
+                        correct, incorrect, noanswer );
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.results);
         builder.setMessage(message);

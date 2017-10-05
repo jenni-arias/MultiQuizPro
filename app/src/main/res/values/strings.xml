@@ -9,9 +9,9 @@
     <string name="prev">Previous</string>
     <string name="results">Results</string>
     <string name="start_over">Start Over</string>
-    <string name="correctas">Correctas: </string>
-    <string name="incorrectas">Inorrectas: </string>
-    <string name="nocontestadas">No contestadas: </string>
+    <string name="resp_correct">Correct: </string>
+    <string name="resp_incorrect">Incorrect: </string>
+    <string name="resp_noanswer">No answer: </string>
 
 
     <array name = "all_questions">
